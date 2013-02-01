@@ -8,6 +8,8 @@
 
 #import "MosaicDataView.h"
 #import "MosaicView.h"
+#import "AFNetworking.h"
+
 #define kMosaicDataViewDidTouchNotification @"kMosaicDataViewDidTouchNotification"
 #define kMosaicDataViewFont @"Helvetica-Bold"
 
@@ -48,6 +50,39 @@
     }
 }
 
+-(void)setImageAndRecenterIfNecessary:(UIImage *)anImage{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        imageView.image = anImage;
+        
+        CGSize imgFinalSize = CGSizeZero;
+        
+        if (anImage.size.width < anImage.size.height){
+            imgFinalSize.width = self.bounds.size.width;
+            imgFinalSize.height = self.bounds.size.width * anImage.size.height / anImage.size.width;
+            
+            //  This is to avoid black bars on the bottom and top of the image
+            //  Happens when images have its height lesser than its bounds
+            if (imgFinalSize.height < self.bounds.size.height){
+                imgFinalSize.width = self.bounds.size.height * self.bounds.size.width / imgFinalSize.height;
+                imgFinalSize.height = self.bounds.size.height;
+            }
+        }else{
+            imgFinalSize.height = self.bounds.size.height;
+            imgFinalSize.width = self.bounds.size.height * anImage.size.width / anImage.size.height;
+            
+            //  This is to avoid black bars on the left and right of the image
+            //  Happens when images have its width lesser than its bounds
+            if (imgFinalSize.width < self.bounds.size.width){
+                imgFinalSize.height = self.bounds.size.height * self.bounds.size.width / imgFinalSize.height;
+                imgFinalSize.width = self.bounds.size.width;
+            }
+        }
+        
+        imageView.frame = CGRectMake(0, 0, imgFinalSize.width, imgFinalSize.height);
+        imageView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    });
+}
+
 #pragma mark - Properties
 
 -(NSString *)title{
@@ -62,37 +97,22 @@
 -(void)setModule:(MosaicData *)newModule{
     module = newModule;
     
-    UIImage *anImage = [UIImage imageNamed:self.module.imageFilename];
-    imageView.image = anImage;
-    
-    CGSize imgFinalSize = CGSizeZero;
-
-    if (anImage.size.width < anImage.size.height){
-        imgFinalSize.width = self.bounds.size.width;
-        imgFinalSize.height = self.bounds.size.width * anImage.size.height / anImage.size.width;
+    if ([self.module.imageFilename hasPrefix:@"http://"] ||
+        [self.module.imageFilename hasPrefix:@"https://"]){
         
-        //  This is to avoid black bars on the bottom and top of the image
-        //  Happens when images have its height lesser than its bounds
-        if (imgFinalSize.height < self.bounds.size.height){
-            imgFinalSize.width = self.bounds.size.height * self.bounds.size.width / imgFinalSize.height;
-            imgFinalSize.height = self.bounds.size.height;
-        }
+        NSURL *anURL = [NSURL URLWithString:self.module.imageFilename];
+        NSURLRequest *anURLRequest = [NSURLRequest requestWithURL:anURL];
+        
+        void(^successBlock)(UIImage *) = ^(UIImage *downloadedImage) {
+            [self setImageAndRecenterIfNecessary:downloadedImage];
+        };
+        AFImageRequestOperation *anOperation = [AFImageRequestOperation imageRequestOperationWithRequest:anURLRequest
+                                                                                                 success:successBlock];
+        [anOperation start];
     }else{
-        imgFinalSize.height = self.bounds.size.height;
-        imgFinalSize.width = self.bounds.size.height * anImage.size.width / anImage.size.height;
-        
-        //  This is to avoid black bars on the left and right of the image
-        //  Happens when images have its width lesser than its bounds
-        if (imgFinalSize.width < self.bounds.size.width){
-            imgFinalSize.height = self.bounds.size.height * self.bounds.size.width / imgFinalSize.height;
-            imgFinalSize.width = self.bounds.size.width;
-        }
+        UIImage *aLocalImage = [UIImage imageNamed:self.module.imageFilename];
+        [self setImageAndRecenterIfNecessary:aLocalImage];
     }
-    
-//    NSLog(@"#DEBUG imageRect %.2f %.2f (%.2f %.2f) %@", imgFinalSize.width, imgFinalSize.height, anImage.size.width, anImage.size.height, newModule);
-    
-    imageView.frame = CGRectMake(0, 0, imgFinalSize.width, imgFinalSize.height);
-    imageView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     
     //  Set new title
     NSInteger marginLeft = self.frame.size.width / 20;
