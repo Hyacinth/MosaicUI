@@ -20,4 +20,9 @@
     return self;
 }
 
+-(NSString *)description{
+    NSString *retVal = [NSString stringWithFormat:@"%.0f : %.0f - %.0f : %.0f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+    return retVal;
+}
+
 @end

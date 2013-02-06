@@ -54,9 +54,16 @@
     
     for (MosaicData *aModule in mosaicElements){
         if (aModule.fit){
+            
+            float width = aModule.size.width;
+            
+            if (!aModule.fit.right.isUsed){
+                width += aModule.fit.right.frame.size.width;
+            }
+            
             CGRect mosaicModuleRect = CGRectMake(aModule.fit.frame.origin.x,
                                                  aModule.fit.frame.origin.y,
-                                                 aModule.size.width,
+                                                 width,
                                                  aModule.size.height);
             
             lastModuleView = [[MosaicDataView alloc] initWithFrame:mosaicModuleRect];
@@ -66,8 +73,7 @@
             [scrollView addSubview:lastModuleView];
             
             scrollHeight = MAX(scrollHeight, lastModuleView.frame.origin.y + lastModuleView.frame.size.height);
-        }else{
-            NSLog(@"#DEBUG no fit for %@", aModule.title);
+//            NSLog(@"#DEBUG Module %@ %@ (size %.0f %.0f) --- right: %@ down: %@", aModule.title, aModule.fit, aModule.size.width, aModule.size.height, aModule.fit.right, aModule.fit.down);
         }
     }
     
