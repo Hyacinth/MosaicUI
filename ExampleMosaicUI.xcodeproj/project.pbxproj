@@ -28,7 +28,6 @@
 		671DDB06169CB04B00FA2CAC /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 671DDAED169CB04B00FA2CAC /* data.json */; };
 		671DDB07169CB04B00FA2CAC /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 671DDAEE169CB04B00FA2CAC /* Storyboard.storyboard */; };
 		671DDB17169CB0C300FA2CAC /* MosaicData.m in Sources */ = {isa = PBXBuildFile; fileRef = 671DDB0B169CB0C300FA2CAC /* MosaicData.m */; };
-		671DDB18169CB0C300FA2CAC /* TwoDimentionalArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 671DDB0E169CB0C300FA2CAC /* TwoDimentionalArray.m */; };
 		671DDB19169CB0C300FA2CAC /* MosaicDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 671DDB14169CB0C300FA2CAC /* MosaicDataView.m */; };
 		671DDB1A169CB0C300FA2CAC /* MosaicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 671DDB16169CB0C300FA2CAC /* MosaicView.m */; };
 		674171751634B6AF002A8B4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674171741634B6AF002A8B4A /* UIKit.framework */; };
@@ -43,6 +42,8 @@
 		6795347516BB3CFD00489B85 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6795346A16BB3CFD00489B85 /* AFURLConnectionOperation.m */; };
 		6795347616BB3CFD00489B85 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6795346C16BB3CFD00489B85 /* AFXMLRequestOperation.m */; };
 		6795347716BB3CFD00489B85 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 6795346E16BB3CFD00489B85 /* UIImageView+AFNetworking.m */; };
+		67EF89AF16C1F3CA0052E694 /* EBPacker.m in Sources */ = {isa = PBXBuildFile; fileRef = 67EF89AB16C1F3CA0052E694 /* EBPacker.m */; };
+		67EF89B016C1F3CA0052E694 /* EBPackerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 67EF89AE16C1F3CA0052E694 /* EBPackerNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,8 +74,6 @@
 		671DDAEE169CB04B00FA2CAC /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		671DDB0A169CB0C300FA2CAC /* MosaicData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicData.h; sourceTree = "<group>"; };
 		671DDB0B169CB0C300FA2CAC /* MosaicData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MosaicData.m; sourceTree = "<group>"; };
-		671DDB0D169CB0C300FA2CAC /* TwoDimentionalArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDimentionalArray.h; sourceTree = "<group>"; };
-		671DDB0E169CB0C300FA2CAC /* TwoDimentionalArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoDimentionalArray.m; sourceTree = "<group>"; };
 		671DDB10169CB0C300FA2CAC /* MosaicViewDatasourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicViewDatasourceProtocol.h; sourceTree = "<group>"; };
 		671DDB11169CB0C300FA2CAC /* MosaicViewDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicViewDelegateProtocol.h; sourceTree = "<group>"; };
 		671DDB13169CB0C300FA2CAC /* MosaicDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicDataView.h; sourceTree = "<group>"; };
@@ -104,6 +103,11 @@
 		6795346C16BB3CFD00489B85 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		6795346D16BB3CFD00489B85 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		6795346E16BB3CFD00489B85 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		67EF89AA16C1F3CA0052E694 /* EBPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBPacker.h; sourceTree = "<group>"; };
+		67EF89AB16C1F3CA0052E694 /* EBPacker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBPacker.m; sourceTree = "<group>"; };
+		67EF89AC16C1F3CA0052E694 /* EBPackerBlockProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBPackerBlockProtocol.h; sourceTree = "<group>"; };
+		67EF89AD16C1F3CA0052E694 /* EBPackerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBPackerNode.h; sourceTree = "<group>"; };
+		67EF89AE16C1F3CA0052E694 /* EBPackerNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBPackerNode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,7 +201,6 @@
 			children = (
 				6795345A16BB3CFD00489B85 /* Libs */,
 				671DDB09169CB0C300FA2CAC /* Entities */,
-				671DDB0C169CB0C300FA2CAC /* Logic */,
 				671DDB0F169CB0C300FA2CAC /* Protocols */,
 				671DDB12169CB0C300FA2CAC /* Views */,
 			);
@@ -211,15 +214,6 @@
 				671DDB0B169CB0C300FA2CAC /* MosaicData.m */,
 			);
 			path = Entities;
-			sourceTree = "<group>";
-		};
-		671DDB0C169CB0C300FA2CAC /* Logic */ = {
-			isa = PBXGroup;
-			children = (
-				671DDB0D169CB0C300FA2CAC /* TwoDimentionalArray.h */,
-				671DDB0E169CB0C300FA2CAC /* TwoDimentionalArray.m */,
-			);
-			path = Logic;
 			sourceTree = "<group>";
 		};
 		671DDB0F169CB0C300FA2CAC /* Protocols */ = {
@@ -273,6 +267,7 @@
 		6795345A16BB3CFD00489B85 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				67EF89A916C1F3CA0052E694 /* EBPacker */,
 				6795345B16BB3CFD00489B85 /* AFNetworking */,
 			);
 			path = Libs;
@@ -302,6 +297,18 @@
 				6795346E16BB3CFD00489B85 /* UIImageView+AFNetworking.m */,
 			);
 			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		67EF89A916C1F3CA0052E694 /* EBPacker */ = {
+			isa = PBXGroup;
+			children = (
+				67EF89AA16C1F3CA0052E694 /* EBPacker.h */,
+				67EF89AB16C1F3CA0052E694 /* EBPacker.m */,
+				67EF89AC16C1F3CA0052E694 /* EBPackerBlockProtocol.h */,
+				67EF89AD16C1F3CA0052E694 /* EBPackerNode.h */,
+				67EF89AE16C1F3CA0052E694 /* EBPackerNode.m */,
+			);
+			path = EBPacker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -386,7 +393,6 @@
 				671DDAF5169CB04B00FA2CAC /* ViewController.m in Sources */,
 				671DDAFC169CB04B00FA2CAC /* main.m in Sources */,
 				671DDB17169CB0C300FA2CAC /* MosaicData.m in Sources */,
-				671DDB18169CB0C300FA2CAC /* TwoDimentionalArray.m in Sources */,
 				671DDB19169CB0C300FA2CAC /* MosaicDataView.m in Sources */,
 				671DDB1A169CB0C300FA2CAC /* MosaicView.m in Sources */,
 				6795346F16BB3CFD00489B85 /* AFHTTPClient.m in Sources */,
@@ -398,6 +404,8 @@
 				6795347516BB3CFD00489B85 /* AFURLConnectionOperation.m in Sources */,
 				6795347616BB3CFD00489B85 /* AFXMLRequestOperation.m in Sources */,
 				6795347716BB3CFD00489B85 /* UIImageView+AFNetworking.m in Sources */,
+				67EF89AF16C1F3CA0052E694 /* EBPacker.m in Sources */,
+				67EF89B016C1F3CA0052E694 /* EBPackerNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

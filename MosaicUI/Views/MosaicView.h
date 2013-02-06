@@ -9,19 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "TwoDimentionalArray.h"
-
 #import "MosaicViewDatasourceProtocol.h"
 #import "MosaicViewDelegateProtocol.h"
 #import "MosaicDataView.h"
+#import "EBPacker.h"
 
 @interface MosaicView : UIView{
-    TwoDimentionalArray *elements;
     UIScrollView *scrollView;
-    
-    NSInteger _maxElementsX;
-    NSInteger _maxElementsY;
-
     BOOL isFirstLayoutTime;
 }
 

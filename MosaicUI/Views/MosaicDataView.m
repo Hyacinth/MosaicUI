@@ -119,7 +119,7 @@
     NSInteger marginBottom = self.frame.size.height / 20;
     
     titleLabel.text = module.title;
-    titleLabel.font = [self fontWithModuleSize:module.size];
+    titleLabel.font = [self fontWithModuleSize:module.moduleSize];
     
     CGSize newSize = [module.title sizeWithFont:titleLabel.font constrainedToSize:titleLabel.frame.size];
     CGRect newRect = CGRectMake(marginLeft,

@@ -7,17 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EBPacker.h"
 
-@interface MosaicData : NSObject{
+@interface MosaicData : NSObject <EBPackerBlockProtocol>{
     NSString *imageFilename;
     NSString *title;
-    NSInteger size;
+    NSInteger moduleSize;
 }
 
 -(id)initWithDictionary:(NSDictionary *)aDict;
 
 @property (strong) NSString *imageFilename;
 @property (strong) NSString *title;
-@property (readwrite) NSInteger size;
+@property (readwrite) NSInteger moduleSize;
+
+//  EBPackerBlockProtocol
+@property (strong) EBPackerNode *fit;
+@property (assign) CGSize size;
 
 @end
