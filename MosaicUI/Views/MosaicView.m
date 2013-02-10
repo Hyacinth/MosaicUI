@@ -10,19 +10,52 @@
 #import "MosaicData.h"
 #import "MosaicDataView.h"
 
-#define kModuleSizeInPoints_iPhone 80
-#define kModuleSizeInPoints_iPad 128
-#define kMaxScrollPages_iPhone 4
-#define kMaxScrollPages_iPad 4
+#define kColumnsQuantity 3
 
 @implementation MosaicView
 @synthesize datasource, delegate;
 
 #pragma mark - Private
 
+- (float)columnWidth{
+    float retVal = roundf(scrollView.frame.size.width / kColumnsQuantity);
+    return retVal;
+}
+
+- (UIView *)shorterColumnModule{
+    UIView *retVal = nil;
+
+    float lowerHeight = 0;
+    
+    for (UIView *columnModule in columns){
+        if (!retVal){
+            //  First case
+            lowerHeight = columnModule.frame.origin.y + columnModule.frame.size.height;
+            retVal = columnModule;
+        }else{
+            float height = columnModule.frame.origin.y + columnModule.frame.size.height;
+            if (height < lowerHeight){
+                lowerHeight = height;
+                retVal = columnModule;
+            }
+        }
+    }
+    
+    return retVal;
+}
+
+-(CGSize)sizeForMosaicData:(MosaicData *)mosaicData{
+    CGSize retVal = CGSizeZero;
+    
+    UIImage *img = [UIImage imageNamed:mosaicData.imageFilename];
+    retVal.width = [self columnWidth];
+    retVal.height = roundf([self columnWidth] * img.size.height / img.size.width);
+
+    return retVal;
+}
+
 - (void)setup{
-    _maxElementsX = -1;
-    _maxElementsY = -1;
+    columns = [[NSMutableArray alloc] init];
     
     //  Add scrollview and set its position and size using autolayout constraints
     scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
@@ -30,161 +63,7 @@
     [self addSubview:scrollView];    
 }
 
-- (BOOL)doesModuleWithCGSize:(CGSize)aSize fitsInCoord:(CGPoint)aPoint{
-    BOOL retVal = YES;
-    
-    NSInteger xOffset = 0;
-    NSInteger yOffset = 0;
-    
-    while (retVal && yOffset < aSize.height){
-        xOffset = 0;
-        
-        while (retVal && xOffset < aSize.width){
-            NSInteger xIndex = aPoint.x + xOffset;
-            NSInteger yIndex = aPoint.y + yOffset;
-            
-            //  Check if the coords are valid in the bidimensional array
-            if (xIndex < [self maxElementsX] && yIndex < [self maxElementsY]){
-                
-                id anObject = [elements objectAtColumn:xIndex andRow:yIndex];
-                if (anObject != nil){
-                    retVal = NO;
-                }
-                
-                xOffset++;
-            }else{
-                retVal = NO;
-            }
-        }
-        
-        yOffset++;
-    }
-    
-    return retVal;
-}
-
-- (void)setModule:(MosaicData *)aModule withCGSize:(CGSize)aSize withCoord:(CGPoint)aPoint{
-    NSInteger xOffset = 0;
-    NSInteger yOffset = 0;
-    
-    while (yOffset < aSize.height){
-        xOffset = 0;
-        
-        while (xOffset < aSize.width){
-            NSInteger xIndex = aPoint.x + xOffset;
-            NSInteger yIndex = aPoint.y + yOffset;
-            
-            [elements setObject:aModule atColumn:xIndex andRow:yIndex];
-            
-            xOffset++;
-        }
-        
-        yOffset++;
-    }
-}
-
-- (NSArray *)coordArrayForCGSize:(CGSize)aSize{
-    NSArray *retVal = nil;
-    BOOL hasFound = NO;
-    
-    NSInteger i=0;
-    NSInteger j=0;
-    
-    while (j < [self maxElementsY] && !hasFound){
-        
-        i = 0;
-        
-        while (i < [self maxElementsX] && !hasFound){
-            
-            BOOL fitsInCoord = [self doesModuleWithCGSize:aSize fitsInCoord:CGPointMake(i, j)];
-            if (fitsInCoord){
-                hasFound = YES;
-                
-                NSNumber *xIndex = [NSNumber numberWithInteger:i];
-                NSNumber *yIndex = [NSNumber numberWithInteger:j];
-                retVal = @[xIndex, yIndex];
-            }
-            
-            i++;
-        }
-        
-        j++;
-    }
-    
-    return retVal;
-}
-
-- (CGSize)sizeForModuleSize:(NSUInteger)aSize{
-    CGSize retVal = CGSizeZero;
-    
-    switch (aSize) {
-            
-        case 0:
-            retVal = CGSizeMake(4, 4);
-            break;
-        case 1:
-            retVal = CGSizeMake(2, 2);
-            break;
-        case 2:
-            retVal = CGSizeMake(2, 1);
-            break;
-        case 3:
-            retVal = CGSizeMake(1, 1);
-            break;
-            
-        default:
-            break;
-    }
-    
-    return retVal;
-}
-
-- (NSInteger)moduleSizeInPoints{
-    NSInteger retVal = kModuleSizeInPoints_iPhone;
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
-        retVal = kModuleSizeInPoints_iPad;
-    }
-    
-    return retVal;
-}
-
-- (NSInteger)maxElementsX{
-    NSInteger retVal = _maxElementsX;
-    
-    if (retVal == -1){
-        retVal = self.frame.size.width / [self moduleSizeInPoints];
-    }
-    
-    return retVal;
-}
-
-- (NSInteger)maxElementsY{
-    NSInteger retVal = _maxElementsY;
-    
-    if (retVal == -1){
-        retVal = self.frame.size.height / [self moduleSizeInPoints] * [self maxScrollPages];
-    }
-    
-    return retVal;
-}
-
-- (NSInteger)maxScrollPages{
-    NSInteger retVal = kMaxScrollPages_iPhone;
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
-        retVal = kMaxScrollPages_iPad;
-    }
-    return retVal;
-}
-
 - (void)setupLayoutWithMosaicElements:(NSArray *)mosaicElements{
-    NSInteger yOffset = 0;
-    
-    _maxElementsX = -1;
-    _maxElementsY = -1;
-    
-    NSInteger scrollHeight = 0;
     
     scrollView.frame = [self bounds];
     
@@ -192,46 +71,42 @@
         [subView removeFromSuperview];
     }
     
-    // Initial setup for the view
-    NSUInteger maxElementsX = [self maxElementsX];
-    NSUInteger maxElementsY = [self maxElementsY];
-    elements = [[TwoDimentionalArray alloc] initWithColumns:maxElementsX andRows:maxElementsY];    
+    [columns removeAllObjects];
     
-    CGPoint modulePoint = CGPointZero;
+    float height = 0;
     
-    MosaicDataView *lastModuleView = nil;
-    
-    //  Set modules in scrollView
-    for (MosaicData *aModule in mosaicElements){        
-        CGSize aSize = [self sizeForModuleSize:aModule.size];
-        NSArray *coordArray = [self coordArrayForCGSize:aSize];
+    for (MosaicData *aMosaicData in mosaicElements){
+
+        MosaicDataView *aMosaicDataView = nil;
+        CGSize mosaicSize = [self sizeForMosaicData:aMosaicData];
         
-        if (coordArray){
-            NSInteger xIndex = [coordArray[0] integerValue];
-            NSInteger yIndex = [coordArray[1] integerValue];
+        if ([columns count] < kColumnsQuantity){
+            CGRect viewRect = CGRectMake([columns count] * [self columnWidth], 0, mosaicSize.width, mosaicSize.height);
+            aMosaicDataView = [[MosaicDataView alloc] initWithFrame:viewRect];
+            aMosaicDataView.module = aMosaicData;
+
+            [columns addObject:aMosaicDataView];
+        }else{
+            UIView *lastColumnDataView = [self shorterColumnModule];
+            NSUInteger index = [columns indexOfObject:lastColumnDataView];
             
-            modulePoint = CGPointMake(xIndex, yIndex);
+            CGRect viewRect = CGRectMake(index * [self columnWidth],
+                                         lastColumnDataView.frame.origin.y + lastColumnDataView.frame.size.height,
+                                         mosaicSize.width,
+                                         mosaicSize.height);
+            aMosaicDataView = [[MosaicDataView alloc] initWithFrame:viewRect];
+            aMosaicDataView.module = aMosaicData;
             
-            [self setModule:aModule withCGSize:aSize withCoord:modulePoint];
-            
-            CGRect mosaicModuleRect = CGRectMake(xIndex * [self moduleSizeInPoints],
-                                                 yIndex * [self moduleSizeInPoints] + yOffset,
-                                                 aSize.width * [self moduleSizeInPoints],
-                                                 aSize.height * [self moduleSizeInPoints]);
-                        
-            lastModuleView = [[MosaicDataView alloc] initWithFrame:mosaicModuleRect];
-            lastModuleView.module = aModule;
-            lastModuleView.mosaicView = self;
-            
-            [scrollView addSubview:lastModuleView];
-            
-            scrollHeight = MAX(scrollHeight, lastModuleView.frame.origin.y + lastModuleView.frame.size.height);
+            [columns replaceObjectAtIndex:index withObject:aMosaicDataView];
         }
+        
+        aMosaicDataView.mosaicView = self;
+        [scrollView addSubview:aMosaicDataView];
+        height = MAX(height, aMosaicDataView.frame.origin.y + aMosaicDataView.frame.size.height);
     }
     
-    //  Setup content size
-    CGSize contentSize = CGSizeMake(scrollView.frame.size.width,scrollHeight);
-    scrollView.contentSize = contentSize;    
+    scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, height);
+    
 }
 
 #pragma mark - Public

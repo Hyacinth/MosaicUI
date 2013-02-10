@@ -28,7 +28,6 @@
 		671DDB06169CB04B00FA2CAC /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 671DDAED169CB04B00FA2CAC /* data.json */; };
 		671DDB07169CB04B00FA2CAC /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 671DDAEE169CB04B00FA2CAC /* Storyboard.storyboard */; };
 		671DDB17169CB0C300FA2CAC /* MosaicData.m in Sources */ = {isa = PBXBuildFile; fileRef = 671DDB0B169CB0C300FA2CAC /* MosaicData.m */; };
-		671DDB18169CB0C300FA2CAC /* TwoDimentionalArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 671DDB0E169CB0C300FA2CAC /* TwoDimentionalArray.m */; };
 		671DDB19169CB0C300FA2CAC /* MosaicDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 671DDB14169CB0C300FA2CAC /* MosaicDataView.m */; };
 		671DDB1A169CB0C300FA2CAC /* MosaicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 671DDB16169CB0C300FA2CAC /* MosaicView.m */; };
 		674171751634B6AF002A8B4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674171741634B6AF002A8B4A /* UIKit.framework */; };
@@ -64,8 +63,6 @@
 		671DDAEE169CB04B00FA2CAC /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		671DDB0A169CB0C300FA2CAC /* MosaicData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicData.h; sourceTree = "<group>"; };
 		671DDB0B169CB0C300FA2CAC /* MosaicData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MosaicData.m; sourceTree = "<group>"; };
-		671DDB0D169CB0C300FA2CAC /* TwoDimentionalArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDimentionalArray.h; sourceTree = "<group>"; };
-		671DDB0E169CB0C300FA2CAC /* TwoDimentionalArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoDimentionalArray.m; sourceTree = "<group>"; };
 		671DDB10169CB0C300FA2CAC /* MosaicViewDatasourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicViewDatasourceProtocol.h; sourceTree = "<group>"; };
 		671DDB11169CB0C300FA2CAC /* MosaicViewDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicViewDelegateProtocol.h; sourceTree = "<group>"; };
 		671DDB13169CB0C300FA2CAC /* MosaicDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MosaicDataView.h; sourceTree = "<group>"; };
@@ -187,8 +184,6 @@
 		671DDB0C169CB0C300FA2CAC /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				671DDB0D169CB0C300FA2CAC /* TwoDimentionalArray.h */,
-				671DDB0E169CB0C300FA2CAC /* TwoDimentionalArray.m */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -323,7 +318,6 @@
 				671DDAF5169CB04B00FA2CAC /* ViewController.m in Sources */,
 				671DDAFC169CB04B00FA2CAC /* main.m in Sources */,
 				671DDB17169CB0C300FA2CAC /* MosaicData.m in Sources */,
-				671DDB18169CB0C300FA2CAC /* TwoDimentionalArray.m in Sources */,
 				671DDB19169CB0C300FA2CAC /* MosaicDataView.m in Sources */,
 				671DDB1A169CB0C300FA2CAC /* MosaicView.m in Sources */,
 			);
