@@ -13,6 +13,7 @@
 #define kColumnsQuantity 4
 #define kDoubleColumnProbabilityLandscape 40
 #define kDoubleColumnProbabilityPortrait 10
+#define kCropHeightGranularityInPoints 20   //  All photos should have a height that is a multiple of kCropHeightGranularityInPoints
 
 @implementation MosaicView
 @synthesize datasource, delegate;
@@ -57,6 +58,12 @@
     retVal.width = [self columnWidth];
     retVal.height = roundf([self columnWidth] * img.size.height / img.size.width);
 
+    /*  All MosaicDataView heights should be multiple of kCropHeightGranularityInPoints so there's more chances to
+     *  get double columns */
+    
+    float heightExcess = ((NSInteger)retVal.height % kCropHeightGranularityInPoints);
+    retVal.height = retVal.height - heightExcess;
+    
     return retVal;
 }
 
