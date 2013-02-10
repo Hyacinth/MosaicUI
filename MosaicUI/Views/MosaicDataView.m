@@ -39,9 +39,10 @@
     
     UIImage *anImage = [UIImage imageNamed:self.module.imageFilename];
     imageView.image = anImage;
-    
-    CGSize imgFinalSize = CGSizeZero;
 
+
+    //  Cropping algorithm
+    CGSize imgFinalSize = CGSizeZero;
     if (anImage.size.width < anImage.size.height){
         imgFinalSize.width = self.bounds.size.width;
         imgFinalSize.height = self.bounds.size.width * anImage.size.height / anImage.size.width;
@@ -63,9 +64,9 @@
             imgFinalSize.width = self.bounds.size.width;
         }
     }
-        
     imageView.frame = CGRectMake(0, 0, imgFinalSize.width, imgFinalSize.height);
     imageView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    
     
     //  Set new title
     NSInteger marginLeft = self.frame.size.width / 20;
@@ -124,8 +125,8 @@
 
 #pragma mark - Public
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame{
+    
     self = [super initWithFrame:frame];
     if (self) {        
         //  UIImageView on background

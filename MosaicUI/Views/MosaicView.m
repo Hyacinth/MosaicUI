@@ -25,13 +25,14 @@
 }
 
 - (UIView *)shorterColumnModule{
+    //  Returns the last added view from the shortest column
     UIView *retVal = nil;
 
     float lowerHeight = 0;
     
     for (UIView *columnModule in columns){
         if (!retVal){
-            //  First case
+            //  Take the first column as the shortest. Next iteration will compare with it
             lowerHeight = columnModule.frame.origin.y + columnModule.frame.size.height;
             retVal = columnModule;
         }else{
@@ -47,6 +48,9 @@
 }
 
 -(CGSize)sizeForMosaicData:(MosaicData *)mosaicData{
+    /*  Returns the size for the MosaicDataView, the width it's always the same since the number of 
+     *  columns it's fixed. The height is variable. */
+    
     CGSize retVal = CGSizeZero;
     
     UIImage *img = [UIImage imageNamed:mosaicData.imageFilename];
@@ -70,13 +74,19 @@
     
     NSUInteger index = [columns indexOfObject:columnDataView];
     
+    //  If the column index is not the last one, then it's possible to get a double column space
     if (index < kColumnsQuantity -1){
         UIView *nextColumnDataView = [columns objectAtIndex:index+1];
         float heightColumn = columnDataView.frame.origin.y + columnDataView.frame.size.height;
         float heightNextColumn = nextColumnDataView.frame.origin.y + nextColumnDataView.frame.size.height;
+
+        //  If the next 2 columns have the same height, then it's possible to get a double column space
         
         if (heightColumn == heightNextColumn){
-            //  Define by random chance
+            /*  Define by random chance. 
+             *  Portrait photos have kDoubleColumnProbabilityPortrait percent of chances of getting a double column.
+             *  Landscape photos have kDoubleColumnProbabilityLandscape percent of chances. */
+            
             NSUInteger minChance = kDoubleColumnProbabilityPortrait;
             
             UIImage *anImage = [UIImage imageNamed:module.imageFilename];
@@ -112,33 +122,39 @@
         CGSize mosaicSize = [self sizeForMosaicData:aMosaicData];
         
         if ([columns count] < kColumnsQuantity){
+            //  First kColumnsQuantity items layout
             CGRect viewRect = CGRectMake([columns count] * [self columnWidth], 0, mosaicSize.width, mosaicSize.height);
+
+            //  Set the view as the last column item
             aMosaicDataView = [[MosaicDataView alloc] initWithFrame:viewRect];
             aMosaicDataView.module = aMosaicData;
-
             [columns addObject:aMosaicDataView];
         }else{
             UIView *lastColumnDataView = [self shorterColumnModule];
             NSUInteger index = [columns indexOfObject:lastColumnDataView];
             
             if ([self canUseDoubleColumn:lastColumnDataView usingModule:aMosaicData]){
+                //  Double column layout
                 CGRect viewRect = CGRectMake(index * [self columnWidth],
                                              lastColumnDataView.frame.origin.y + lastColumnDataView.frame.size.height,
                                              mosaicSize.width * 2,
                                              roundf(mosaicSize.height * 1.5));
+
+                //  Set the view as the 2 last columns item
                 aMosaicDataView = [[MosaicDataView alloc] initWithFrame:viewRect];
                 aMosaicDataView.module = aMosaicData;
-                
                 columns[index] = aMosaicDataView;
                 columns[index+1] = aMosaicDataView;
             }else{
+                //  Single column layout
                 CGRect viewRect = CGRectMake(index * [self columnWidth],
                                              lastColumnDataView.frame.origin.y + lastColumnDataView.frame.size.height,
                                              mosaicSize.width,
                                              mosaicSize.height);
+
+                //  Set the view as the last column item                
                 aMosaicDataView = [[MosaicDataView alloc] initWithFrame:viewRect];
                 aMosaicDataView.module = aMosaicData;
-                
                 columns[index] = aMosaicDataView;
             }
         }
