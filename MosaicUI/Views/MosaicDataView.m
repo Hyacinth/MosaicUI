@@ -16,31 +16,6 @@
 
 #pragma mark - Private
 
--(UIFont *)fontWithModuleSize:(NSUInteger)aSize{
-
-    UIFont *retVal = nil;
-    
-    switch (aSize) {
-        case 0:
-            retVal = [UIFont fontWithName:kMosaicDataViewFont size:36];
-            break;
-        case 1:
-            retVal = [UIFont fontWithName:kMosaicDataViewFont size:18];
-            break;
-        case 2:
-            retVal = [UIFont fontWithName:kMosaicDataViewFont size:18];
-            break;
-        case 3:
-            retVal = [UIFont fontWithName:kMosaicDataViewFont size:15];
-            break;
-        default:
-            retVal = [UIFont fontWithName:kMosaicDataViewFont size:15];
-            break;
-    }
-    
-    return retVal;
-}
-
 -(void)mosaicViewDidTouch:(NSNotification *)aNotification{
     MosaicDataView *aView = [aNotification.userInfo objectForKey:@"mosaicDataView"];
     if (aView != self){
@@ -88,9 +63,7 @@
             imgFinalSize.width = self.bounds.size.width;
         }
     }
-    
-//    NSLog(@"#DEBUG imageRect %.2f %.2f (%.2f %.2f) %@", imgFinalSize.width, imgFinalSize.height, anImage.size.width, anImage.size.height, newModule);
-    
+        
     imageView.frame = CGRectMake(0, 0, imgFinalSize.width, imgFinalSize.height);
     imageView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     
@@ -99,7 +72,6 @@
     NSInteger marginBottom = self.frame.size.height / 20;
     
     titleLabel.text = module.title;
-    titleLabel.font = [self fontWithModuleSize:module.size];
     
     CGSize newSize = [module.title sizeWithFont:titleLabel.font constrainedToSize:titleLabel.frame.size];
     CGRect newRect = CGRectMake(marginLeft,
@@ -170,7 +142,7 @@
         titleLabel = [[UILabel alloc] initWithFrame:titleLabelFrame];
         titleLabel.textAlignment = NSTextAlignmentRight;
         titleLabel.backgroundColor = [UIColor clearColor];
-        titleLabel.font = [UIFont fontWithName:kMosaicDataViewFont size:15];
+        titleLabel.font = [UIFont fontWithName:kMosaicDataViewFont size:18];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.shadowColor = [UIColor blackColor];
         titleLabel.shadowOffset = CGSizeMake(0, 1);

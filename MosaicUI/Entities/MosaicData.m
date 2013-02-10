@@ -9,13 +9,12 @@
 #import "MosaicData.h"
 
 @implementation MosaicData
-@synthesize imageFilename, title, size;
+@synthesize imageFilename, title;
 
 -(id)initWithDictionary:(NSDictionary *)aDict{
     self = [self init];
     if (self){
         self.imageFilename = [aDict objectForKey:@"imageFilename"];
-        self.size = [[aDict objectForKey:@"size"] integerValue];
         self.title = [aDict objectForKey:@"title"];
     }
     return self;

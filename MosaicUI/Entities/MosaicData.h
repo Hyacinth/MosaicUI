@@ -11,13 +11,11 @@
 @interface MosaicData : NSObject{
     NSString *imageFilename;
     NSString *title;
-    NSInteger size;
 }
 
 -(id)initWithDictionary:(NSDictionary *)aDict;
 
 @property (strong) NSString *imageFilename;
 @property (strong) NSString *title;
-@property (readwrite) NSInteger size;
 
 @end
