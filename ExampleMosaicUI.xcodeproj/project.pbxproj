@@ -165,7 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				671DDB09169CB0C300FA2CAC /* Entities */,
-				671DDB0C169CB0C300FA2CAC /* Logic */,
 				671DDB0F169CB0C300FA2CAC /* Protocols */,
 				671DDB12169CB0C300FA2CAC /* Views */,
 			);
@@ -179,13 +178,6 @@
 				671DDB0B169CB0C300FA2CAC /* MosaicData.m */,
 			);
 			path = Entities;
-			sourceTree = "<group>";
-		};
-		671DDB0C169CB0C300FA2CAC /* Logic */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Logic;
 			sourceTree = "<group>";
 		};
 		671DDB0F169CB0C300FA2CAC /* Protocols */ = {
